@@ -87,7 +87,7 @@ sub _build_error_type {
 
     # We have to capture just the first error, not other errors that may be buried in the
     # stack trace.
-    $error =~ s/ at [^\n]+ line \d+\.\n.+//s;
+    $error =~ s/ at [^\n]+ line \d+\.?\n.+//s;
 
     # Disable /x flag to allow for whitespace within string, but turn it on for newlines
     # and comments.
