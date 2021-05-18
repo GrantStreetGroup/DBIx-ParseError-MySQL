@@ -98,8 +98,13 @@ sub _build_error_type {
 
     # Locks
     return 'lock' if $error =~ m<
-        (?-x:Deadlock found when trying to get lock; try restarting transaction)|
+        (?-x:Deadlock found when trying to get (?:user-level |locking service )?lock; try )(?:
+            (?-x:restarting transaction)|
+            (?-x:rolling back transaction/releasing locks and restarting lock acquisition)|
+            (?-x:releasing locks and restarting lock acquisition)
+        )|
         (?-x:Lock wait timeout exceeded; try restarting transaction)|
+        (?-x:Service lock wait timeout exceeded)|
         (?-x:WSREP detected deadlock/conflict and aborted the transaction.\s+Try restarting the transaction)
     >x;
 
