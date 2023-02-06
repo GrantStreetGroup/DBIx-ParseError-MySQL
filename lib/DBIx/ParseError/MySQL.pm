@@ -114,7 +114,6 @@ sub _build_error_type {
         (?-x:MySQL server has gone away)|
         (?-x:Lost connection to MySQL server)|
         (?-x:Query execution was interrupted)|
-        (?-x:Turning off AutoCommit failed)|
 
         # Initial connection failure
         (?-x:Bad handshake)|
@@ -126,7 +125,11 @@ sub _build_error_type {
         # Packet corruption
         (?-x:Got a read error from the connection pipe)|
         (?-x:Got (?:an error|timeout) (?:reading|writing) communication packets)|
-        (?-x:Malformed communication packet)
+        (?-x:Malformed communication packet)|
+
+        # XXX: This _might be_ a connection failure, but the DBD::mysql error message
+        # does not expose the direct failure cause.  See DBD::mysql/dbdimp.c#L2551.
+        (?-x:Turning (?:off|on) AutoCommit failed)
     >x;
 
     # Failover/shutdown of node/server
