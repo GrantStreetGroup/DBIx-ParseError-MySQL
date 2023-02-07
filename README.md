@@ -4,7 +4,7 @@ DBIx::ParseError::MySQL - Error parser for MySQL
 
 # VERSION
 
-version v1.0.2
+version v1.0.3
 
 # SYNOPSIS
 
@@ -25,15 +25,15 @@ compatible with Galera's WSREP errors.
 
 # ATTRIBUTES
 
-# orig\_error
+## orig\_error
 
 Returns the original, untouched error object or string.
 
-# error\_string
+## error\_string
 
 Returns the stringified version of the error.
 
-# error\_type
+## error\_type
 
 Returns a string that describes the type of error.  These can be one of the following:
 
@@ -54,7 +54,7 @@ This is merely a check for the following [error types](#error_type):
 
 # CONSTRUCTORS
 
-# new
+## new
 
     my $parsed_error = DBIx::ParseError::MySQL->new($@);
 
@@ -71,7 +71,7 @@ Grant Street Group <developers@grantstreet.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2020 - 2021 by Grant Street Group.
+This software is Copyright (c) 2020 - 2023 by Grant Street Group.
 
 This is free software, licensed under:
 
