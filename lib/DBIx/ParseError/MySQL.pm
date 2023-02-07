@@ -31,7 +31,7 @@ compatible with Galera's WSREP errors.
 
 =head1 ATTRIBUTES
 
-=head1 orig_error
+=head2 orig_error
 
 Returns the original, untouched error object or string.
 
@@ -43,7 +43,7 @@ has orig_error => (
     required => 1,
 );
 
-=head1 error_string
+=head2 error_string
 
 Returns the stringified version of the error.
 
@@ -62,7 +62,7 @@ sub _build_error_string {
     return $self->orig_error."";
 }
 
-=head1 error_type
+=head2 error_type
 
 Returns a string that describes the type of error.  These can be one of the following:
 
@@ -178,12 +178,14 @@ sub _build_is_transient {
 
 =head1 CONSTRUCTORS
 
-=head1 new
+=head2 new
 
     my $parsed_error = DBIx::ParseError::MySQL->new($@);
 
 Returns a C<DBIx::ParseError::MySQL> object.  Since the error is the only parameter, it
 can be passed by itself.
+
+=for Pod::Coverage BUILDARGS
 
 =cut
 
