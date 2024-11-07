@@ -113,6 +113,8 @@ sub _build_error_type {
         # Connection dropped/interrupted
         (?-x:MySQL server has gone away)|
         (?-x:Lost connection to MySQL server)|
+        # NOTE: Exclude max_execution_time interruptions, since these are not connection
+        # failures, and retrying them would just produce the same results
         (?-x:Query execution was interrupted(?!, maximum statement execution time exceeded))|
 
         # Initial connection failure
