@@ -4,7 +4,7 @@ DBIx::ParseError::MySQL - Error parser for MySQL
 
 # VERSION
 
-version v1.0.4
+version v1.0.5
 
 # SYNOPSIS
 
@@ -21,7 +21,8 @@ version v1.0.4
 # DESCRIPTION
 
 This module is a database error categorizer, specifically for MySQL. This module is also
-compatible with Galera's WSREP errors.
+compatible with Galera's WSREP errors.  Errors from AWS Aurora failovers, like a demoted
+writer or write forwarding failures, are also recognized.
 
 # ATTRIBUTES
 
@@ -39,7 +40,8 @@ Returns a string that describes the type of error.  These can be one of the foll
 
     lock             Lock errors, like a lock wait timeout or deadlock
     connection       Connection/packet failures, disconnections
-    shutdown         Errors that happen when a server is shutting down
+    shutdown         Errors that happen when a server is shutting down or failing over,
+                     like Galera/WSREP or Aurora read-only and write forwarding errors
     duplicate_value  Duplicate entry errors
     unknown          Any other error
 
@@ -71,7 +73,7 @@ Grant Street Group <developers@grantstreet.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2020 - 2025 by Grant Street Group.
+This software is Copyright (c) 2020 - 2026 by Grant Street Group.
 
 This is free software, licensed under:
 
