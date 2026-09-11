@@ -27,7 +27,8 @@ use Types::Standard qw( Str Bool Object );
 =head1 DESCRIPTION
 
 This module is a database error categorizer, specifically for MySQL. This module is also
-compatible with Galera's WSREP errors.
+compatible with Galera's WSREP errors.  Errors from AWS Aurora failovers, like a demoted
+writer or write forwarding failures, are also recognized.
 
 =head1 ATTRIBUTES
 
@@ -68,7 +69,8 @@ Returns a string that describes the type of error.  These can be one of the foll
 
     lock             Lock errors, like a lock wait timeout or deadlock
     connection       Connection/packet failures, disconnections
-    shutdown         Errors that happen when a server is shutting down
+    shutdown         Errors that happen when a server is shutting down or failing over,
+                     like Galera/WSREP or Aurora read-only and write forwarding errors
     duplicate_value  Duplicate entry errors
     unknown          Any other error
 
@@ -139,7 +141,12 @@ sub _build_error_type {
         (?-x:WSREP has not yet prepared node for application use)|
         (?-x:Server shutdown in progress)|
         (?-x:Normal shutdown)|
-        (?-x:Shutdown complete)
+        (?-x:Shutdown complete)|
+        (?-x:The MySQL server is running with the --(?:super-)?read-only option so it cannot execute this statement)|
+        (?-x:Cannot execute statement in a READ ONLY transaction)|
+        (?-x:Running in read-only mode)|
+        (?-x:Forwarded connection on Writer terminated; try restarting transaction)|
+        (?-x:Internal write forwarding error)
     >x;
 
     # Duplicate entry error
