@@ -40,6 +40,7 @@ our %ERRORS = (
         'Running in read-only mode',
         'Forwarded connection on Writer terminated; try restarting transaction',
         'Internal write forwarding error',
+        'Failed to send write forwarding request to writer',
     ],
     duplicate_value => [
         "Duplicate entry '12345' for key 'PRIMARY'",

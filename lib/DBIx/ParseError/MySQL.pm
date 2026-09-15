@@ -146,7 +146,8 @@ sub _build_error_type {
         (?-x:Cannot execute statement in a READ ONLY transaction)|
         (?-x:Running in read-only mode)|
         (?-x:Forwarded connection on Writer terminated; try restarting transaction)|
-        (?-x:Internal write forwarding error)
+        (?-x:Internal write forwarding error)|
+        (?-x:Failed to send write forwarding request to writer)
     >x;
 
     # Duplicate entry error
