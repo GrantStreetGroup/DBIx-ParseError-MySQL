@@ -107,6 +107,7 @@ sub _build_error_type {
         )|
         (?-x:Lock wait timeout exceeded; try restarting transaction)|
         (?-x:Service lock wait timeout exceeded)|
+        (?-x:Table definition has changed, please retry transaction)|
         (?-x:WSREP detected deadlock/conflict and aborted the transaction.\s+Try restarting the transaction)
     >x;
 
@@ -122,6 +123,7 @@ sub _build_error_type {
         # Initial connection failure
         (?-x:Bad handshake)|
         (?-x:Too many connections)|
+        (?-x:Not enough connections on writer to handle your request)|
         (?-x:Host '\S+' is blocked because of many connection errors)|
         (?-x:Can't get hostname for your address)|
         (?-x:Can't connect to (?:local )?MySQL server)|
@@ -129,6 +131,8 @@ sub _build_error_type {
         # Packet corruption
         (?-x:Got a read error from the connection pipe)|
         (?-x:Got (?:an error|timeout) (?:reading|writing) communication packets)|
+        (?-x:Got packets out of order)|
+        (?-x:Couldn't uncompress communication packet)|
         (?-x:Malformed communication packet)|
 
         # XXX: This _might be_ a connection failure, but the DBD::mysql error message
@@ -146,7 +150,8 @@ sub _build_error_type {
         (?-x:Cannot execute statement in a READ ONLY transaction)|
         (?-x:Running in read-only mode)|
         (?-x:Forwarded connection on Writer terminated; try restarting transaction)|
-        (?-x:Internal write forwarding error)
+        (?-x:Internal write forwarding error)|
+        (?-x:Failed to send write forwarding request to writer)
     >x;
 
     # Duplicate entry error
