@@ -4,7 +4,7 @@ DBIx::ParseError::MySQL - Error parser for MySQL
 
 # VERSION
 
-version v1.0.5
+version v1.0.6
 
 # SYNOPSIS
 
