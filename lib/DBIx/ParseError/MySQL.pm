@@ -108,6 +108,7 @@ sub _build_error_type {
         (?-x:Lock wait timeout exceeded; try restarting transaction)|
         (?-x:Service lock wait timeout exceeded)|
         (?-x:Table definition has changed, please retry transaction)|
+        (?-x:Prepared statement needs to be re-prepared)|
         (?-x:WSREP detected deadlock/conflict and aborted the transaction.\s+Try restarting the transaction)
     >x;
 
@@ -119,6 +120,10 @@ sub _build_error_type {
         # NOTE: Exclude max_execution_time interruptions, since these are not connection
         # failures, and retrying them would just produce the same results
         (?-x:Query execution was interrupted(?!, maximum statement execution time exceeded))|
+        # A prepared statement handler unknown to the server means the connection's
+        # server-side state is gone (eg the server restarted or failed over), so the
+        # connection is effectively dead and the query should be retried
+        (?-x:Unknown prepared statement handler \(\d+\) given to mysql_stmt_precheck)|
 
         # Initial connection failure
         (?-x:Bad handshake)|
